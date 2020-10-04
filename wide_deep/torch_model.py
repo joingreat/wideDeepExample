@@ -202,14 +202,14 @@ class WideDeep(nn.Module):
                         y_pred_cat = (y_pred > 0.5).squeeze(1).float()
                     if self.method == "multiclass":
                         _, y_pred_cat = torch.max(y_pred, 1)
-                    correct+= float((y_pred_cat == y).sum().data[0])
+                    correct+= float((y_pred_cat == y).sum().item())
 
             if self.method != "regression":
                 print ('Epoch {} of {}, Loss: {}, accuracy: {}'.format(epoch+1,
-                    n_epochs, round(loss.data[0],3), round(correct/total,4)))
+                    n_epochs, round(loss.item(),3), round(correct/total,4)))
             else:
                 print ('Epoch {} of {}, Loss: {}'.format(epoch+1, n_epochs,
-                    round(loss.data[0],3)))
+                    round(loss.item(),3)))
 
 
     def predict(self, dataset):
@@ -293,11 +293,14 @@ class WideDeep(nn.Module):
         emb_layer  = [layer for layer in emb_layers if col_name in layer[0]][0]
         embeddings = emb_layer[1].cpu().data.numpy()
         col_label_encoding = self.encoding_dict[col_name]
-        inv_dict = {v:k for k,v in col_label_encoding.iteritems()}
+        inv_dict = {v:k for k,v in col_label_encoding.items()}
         embeddings_dict = {}
-        for idx,value in inv_dict.iteritems():
+        for idx,value in inv_dict.items():
             embeddings_dict[value] = embeddings[idx]
 
         return embeddings_dict
+
+
+
 
 
