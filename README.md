@@ -5,7 +5,7 @@ This is a PyTorch implementation of Tensorflow's Wide and Deep Algorithm. Detail
 
 ## Requirements:
 
-The algorithm was built using `python 2.7.13` and the required packages are:
+The algorithm was built using `python 3.6` and the required packages are:
 ```
 pandas
 numpy
